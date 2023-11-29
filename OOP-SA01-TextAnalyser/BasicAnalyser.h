@@ -5,7 +5,7 @@
 #include <string>
 
 /// <summary>
-/// Basic analyser abstract class requiring implementation in Analyser.hpp
+/// Basic analyser abstract class requiring implementation in Analyser.hpp .
 /// </summary>
 class BasicAnalyser
 {
