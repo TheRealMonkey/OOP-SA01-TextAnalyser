@@ -1,0 +1,36 @@
+<Playlist Version="2.0">
+  <Rule Name="Includes" Match="Any">
+    <Rule Match="All">
+      <Property Name="Solution" />
+      <Rule Match="Any">
+        <Rule Match="All">
+          <Property Name="Project" Value="UnitTestAnalyser" />
+          <Rule Match="Any">
+            <Rule Match="All">
+              <Property Name="Namespace" Value="UnitTestAnalyser" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="UnitTestAnalyser" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="UnitTestAnalyser::UnitTestAnalyser::GunningFogIndex_2_1nd" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="GunningFogIndex_2_1nd" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="UnitTestAnalyser::UnitTestAnalyser::ColemanLiauIndex_2_1nd" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="ColemanLiauIndex_2_1nd" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
+          </Rule>
+        </Rule>
+      </Rule>
+    </Rule>
+  </Rule>
+</Playlist>

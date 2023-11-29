@@ -1,0 +1,60 @@
+<Playlist Version="2.0">
+  <Rule Name="Includes" Match="Any">
+    <Rule Match="All">
+      <Property Name="Solution" />
+      <Rule Match="Any">
+        <Rule Match="All">
+          <Property Name="Project" Value="UnitTestAnalyser" />
+          <Rule Match="Any">
+            <Rule Match="All">
+              <Property Name="Namespace" Value="UnitTestAnalyser" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="UnitTestAnalyser" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="UnitTestAnalyser::UnitTestAnalyser::GetTotalWords_3rd" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="GetTotalWords_3rd" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="UnitTestAnalyser::UnitTestAnalyser::GetTotalLetters_3rd" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="GetTotalLetters_3rd" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="UnitTestAnalyser::UnitTestAnalyser::GetTotalSentences_3rd" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="GetTotalSentences_3rd" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="UnitTestAnalyser::UnitTestAnalyser::GetTotalSyllables_3rd" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="GetTotalSyllables_3rd" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="UnitTestAnalyser::UnitTestAnalyser::GetTotalComplexWords_3rd" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="GetTotalComplexWords_3rd" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="UnitTestAnalyser::UnitTestAnalyser::WordsAndLettersInSourceText_3rd" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="WordsAndLettersInSourceText_3rd" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
+          </Rule>
+        </Rule>
+      </Rule>
+    </Rule>
+  </Rule>
+</Playlist>
