@@ -221,12 +221,12 @@ double Analyser::calculateFleschReadingEaseScore(const std::vector<std::string>&
 
 	Analyser::analyseWordsAndLettersInSourceText(sentences);
 
-	float wordtotal = Analyser::getTotalWords();
-	float sentenceTotal = Analyser::getTotalSentences();
-	float sylybalTotal = Analyser::getTotalSyllables();
+	double wordtotal = Analyser::getTotalWords();
+	double sentenceTotal = Analyser::getTotalSentences();
+	double syllablesTotal = Analyser::getTotalSyllables();
 
 
-	double fleschReadingEaseScore = 206.835 - (1.015 * (wordtotal / sentenceTotal)) - (84.6 * (sylybalTotal / wordtotal));
+	double fleschReadingEaseScore = 206.835 - (1.015 * (wordtotal / sentenceTotal)) - (84.6 * (syllablesTotal / wordtotal));
 
 	return fleschReadingEaseScore;
 
@@ -239,7 +239,18 @@ double Analyser::calculateFleschReadingEaseScore(const std::vector<std::string>&
 /// </summary>
 /// <param name="sentences">Vector of strings representings the source text as individual sentences</param>
 /// <returns>Flesch-Kincaid Grade Level</returns>
-double Analyser::calculateFleschKincaidGradeLevel(const std::vector<std::string>& sentences) { return 1; }
+double Analyser::calculateFleschKincaidGradeLevel(const std::vector<std::string>& sentences) {
+	Analyser::analyseWordsAndLettersInSourceText(sentences);
+	double wordtotal = Analyser::getTotalWords();
+	double sentenceTotal = Analyser::getTotalSentences();
+	double syllablesTotal = Analyser::getTotalSyllables();
+
+
+	double fleschKincaidGradeLevel = (0.39 * (wordtotal / sentenceTotal)) + (11.8 * (syllablesTotal / wordtotal)) - 15.59;
+
+	return fleschKincaidGradeLevel;
+
+}
 
 // 2.1 Methods
 
@@ -251,7 +262,18 @@ double Analyser::calculateFleschKincaidGradeLevel(const std::vector<std::string>
 /// </summary>
 /// <param name="sentences">Vector of strings representings the source text as individual sentences</param>
 /// <returns>Gunning Fog Index</returns>
-double Analyser::calculateGunningFogIndex(const std::vector<std::string>& sentences) { return 1; }
+double Analyser::calculateGunningFogIndex(const std::vector<std::string>& sentences) {
+
+	Analyser::analyseWordsAndLettersInSourceText(sentences);
+	double wordtotal = Analyser::getTotalWords();
+	double sentenceTotal = Analyser::getTotalSentences();
+	double complexWordTotal = Analyser::getTotalComplexWords();
+
+
+	double gunningFogIndex = 0.4 * ((wordtotal / sentenceTotal) + (100 * (complexWordTotal / wordtotal)));
+
+	return gunningFogIndex;
+}
 
 /// <summary>
 /// Coleman-Liau Index: Evaluates the text's grade level using characters per word and words per sentence, 
@@ -261,7 +283,18 @@ double Analyser::calculateGunningFogIndex(const std::vector<std::string>& senten
 /// </summary>
 /// <param name="sentences">Vector of strings representings the source text as individual sentences</param>
 /// <returns>Coleman-Liau Index</returns>
-double Analyser::calculateColemanLiauIndex(const std::vector<std::string>& sentences) { return 1; }
+double Analyser::calculateColemanLiauIndex(const std::vector<std::string>& sentences) { 
+
+	Analyser::analyseWordsAndLettersInSourceText(sentences);
+	double wordtotal = Analyser::getTotalWords();
+	double sentenceTotal = Analyser::getTotalSentences();
+	double letterTotal = Analyser::getTotalLetters();
+
+
+	double colemanLiauIndex = (0.0588 * (letterTotal / wordtotal * 100)) - (0.296 * (sentenceTotal / wordtotal * 100)) - 15.8;
+
+	return colemanLiauIndex;
+}
 
 // 1st Method
 
@@ -280,6 +313,18 @@ double Analyser::calculateColemanLiauIndex(const std::vector<std::string>& sente
 /// <returns>std::map<std::size_t, std::size_t> with the word lengths as the key and the count of the number 
 /// of words in the text of each specific length</returns>
 std::map<std::size_t, std::size_t> Analyser::analyseWordLengthFrequencyInSourceText(const std::vector<std::string>& sentences) {
-	return std::map<std::size_t, std::size_t>{};
+	Analyser::analyseWordsAndLettersInSourceText(sentences);
+
+	std::map<std::size_t, std::size_t> mapOfFrequency;
+
+
+	for (std::string word: this->words) {
+
+		mapOfFrequency[word.size()]++;
+
+
+	}
+
+	return mapOfFrequency;
 }
 
