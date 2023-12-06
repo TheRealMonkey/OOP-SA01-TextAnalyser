@@ -4,7 +4,6 @@
 class Analyser :public BasicAnalyser {
 private:
 	std::vector<std::string> words;
-	std::vector<std::vector<std::string>> wordsInSentences;
 	int totalSentences;
 	int numberOfLetters;
 
@@ -52,13 +51,17 @@ public:
 /// Return the total number of sentences from the last text analysed by analyseWordsAndLettersInSourceText
 /// </summary>
 /// <returns>total number of sentences</returns>
-std::size_t Analyser::getTotalSentences() { return this->totalSentences; }
+std::size_t Analyser::getTotalSentences() {
+	//returns the number of sentences stored in the private scope of the method.
+	return this->totalSentences;
+}
 
 /// <summary>
 /// Return the total number of words from the last text analysed by analyseWordsAndLettersInSourceText
 /// </summary>
 /// <returns>Total number of words</returns>
 long Analyser::getTotalWords() {
+	//returns the number of words by using the size method that will return the number of elements in the vector stored in the private scope.
 	return this->words.size();
 }
 
@@ -68,11 +71,15 @@ long Analyser::getTotalWords() {
 /// <returns>Total number of syllables</returns>
 long Analyser::getTotalSyllables() {
 
+	//used to store number of syllables.
 	long numberOfSyllables = 0;
+
+	//loops though every word in the word vector.
 	for (std::string word : this->words) {
+		//this will add the number of Syllables from each word which is returned by the countSyllables method defined in the basicAnalyser class
 		numberOfSyllables += BasicAnalyser::countSyllables(word);
 	}
-
+	//returns the total number of Syllables
 	return numberOfSyllables;
 }
 
@@ -82,17 +89,25 @@ long Analyser::getTotalSyllables() {
 /// </summary>
 /// <returns>Total number of complex words</returns>
 long Analyser::getTotalComplexWords() {
-
+	//used to store the number of complex words 
 	long numbrOfComplexSyllables = 0;
-	long numberOfSyllables = 0;
-	for (std::string word : this->words) {
 
+	//used to count the Syllables for each worf
+	long numberOfSyllables = 0;
+
+	//loops through every word
+	for (std::string word : this->words) {
+		//number of Syllables returned by countSyllables and set to numberOfSyllables
 		numberOfSyllables = BasicAnalyser::countSyllables(word);
 
+
+		//if the number of Syllables is 3 or more, add 1 to numbrOfComplexSyllables
 		if (numberOfSyllables >= 3) {
 			numbrOfComplexSyllables++;
 		}
 	}
+
+	//return the number of complex words.
 	return numbrOfComplexSyllables;
 }
 
@@ -100,7 +115,10 @@ long Analyser::getTotalComplexWords() {
 /// Return the total number of letters from the last text analysed by analyseWordsAndLettersInSourceText
 /// </summary>
 /// <returns>Total number of letters</returns>
-std::size_t Analyser::getTotalLetters() { return this->numberOfLetters; }
+std::size_t Analyser::getTotalLetters() {
+	//returns the number of letters which is stored in the private scope
+	return this->numberOfLetters;
+}
 
 /// <summary>
 /// Analyses the words and letters in source text and internally stores the following values for access by the associated getters
@@ -110,40 +128,44 @@ std::size_t Analyser::getTotalLetters() { return this->numberOfLetters; }
 void Analyser::analyseWordsAndLettersInSourceText(const std::vector<std::string>& sentences) {
 
 
-	//the number of words will be counted by counting the number of spaces in the sentence.
+	//this will store each word by adding each character untill a space which will indicate the word is finished and then
+	//	put into the wrords and wordsInSentence vectors.
 	std::string word;
 
 	//the number of letters in the vector.
 	int numberOfLetters;
-	
-	std::vector<std::string> wordsInSentence;
-
-
+	//loops though every sentence in sentences.
 	for (std::string sentence : sentences) {
+		//loops though every letter in the sentence.
 		for (char letter : sentence) {
 			//char 32 == space
+			//if the character is a space, it will inditacte the word has been finshed and then add it to the words vector
+			//	aswell as clearing the word variable.
 			if (letter == char(32)) {
 				this->words.push_back(word);
-				wordsInSentence.push_back(word);
-				word = "";
+
+				word.clear();
 			}
 			else {
+				//if the character is not a space, then the letter will be added to the word string. This will also count the number of letters
+				//	in the phrase which will be used later.
 				this->numberOfLetters++;
 				word += letter;
 			}
 		}
+		//we need to push the word to words because the last word in the sentence will not be cought in the for loop above
+		//	therefor we need to push it ourself after the loop is over.
 		words.push_back(word);
-		wordsInSentence.push_back(word);
-		this->wordsInSentences.push_back(wordsInSentence);
 
 
-		word = "";
-		wordsInSentence.clear();
+		//this will be cleared for the next sentence.
+		word.clear();
+
 	}
 
 
 
-
+	//stets the number of sentences by getting the size of the vector as each element is a sentence.
 	this->totalSentences = sentences.size();
 
 	return;
@@ -158,13 +180,8 @@ void Analyser::analyseWordsAndLettersInSourceText(const std::vector<std::string>
 /// </summary>
 /// <returns>Average number of words per sentence</returns>
 double Analyser::averageWordsPerSentence() {
-	
-	int numberOfWordsInSentence = 0;
-	for (auto sentence : this->wordsInSentences) {
-		numberOfWordsInSentence += sentence.size();
-	
-	}
-	return numberOfWordsInSentence / this->totalSentences;
+	//devides total number of words by number of sentences.
+	return this->words.size() / this->totalSentences;
 }
 
 /// <summary>
@@ -174,13 +191,8 @@ double Analyser::averageWordsPerSentence() {
 /// <returns>Average number of letters per word</returns>
 double Analyser::averageLettersPerWord() {
 
-
-	int lettersInWords = 0;
-	for (std::string word : this->words) {
-		lettersInWords += word.size();
-	}
-
-	return lettersInWords / Analyser::getTotalWords();
+	//devides total number of letters by number of words.
+	return Analyser::getTotalLetters() / Analyser::getTotalWords();
 }
 
 /// <summary>
@@ -188,15 +200,10 @@ double Analyser::averageLettersPerWord() {
 /// stored in the class by analyseWordsAndLettersInSourceText
 /// </summary>
 /// <returns>Average number of syllables per words</returns>
-double Analyser::averageSyllablesPerWord() { 
+double Analyser::averageSyllablesPerWord() {
 
-
-	int syllablesInWords = 0;
-	for (std::string word : this->words) {
-		syllablesInWords += BasicAnalyser::countSyllables(word);
-	}
-
-	return syllablesInWords / Analyser::getTotalWords();
+	//devides total number of syllables by number of words.
+	return Analyser::getTotalSyllables() / Analyser::getTotalWords();
 }
 
 // 2.2 Methods
@@ -209,16 +216,19 @@ double Analyser::averageSyllablesPerWord() {
 /// <param name="sentences">Vector of strings representings the source text as individual sentences</param>
 /// <returns>Flesch Reading Ease Score</returns>
 double Analyser::calculateFleschReadingEaseScore(const std::vector<std::string>& sentences) {
-
+	//run the method so that we can get the values needed
 	Analyser::analyseWordsAndLettersInSourceText(sentences);
 
+
+	//assign the values needed for the equation.
 	double wordtotal = Analyser::getTotalWords();
 	double sentenceTotal = Analyser::getTotalSentences();
 	double syllablesTotal = Analyser::getTotalSyllables();
 
-
+	//using the equation in the summary, substatute the numbers with the values given by analyseWordsAndLettersInSourceText.
 	double fleschReadingEaseScore = 206.835 - (1.015 * (wordtotal / sentenceTotal)) - (84.6 * (syllablesTotal / wordtotal));
 
+	//returns the result of the equation.
 	return fleschReadingEaseScore;
 
 }
@@ -231,14 +241,18 @@ double Analyser::calculateFleschReadingEaseScore(const std::vector<std::string>&
 /// <param name="sentences">Vector of strings representings the source text as individual sentences</param>
 /// <returns>Flesch-Kincaid Grade Level</returns>
 double Analyser::calculateFleschKincaidGradeLevel(const std::vector<std::string>& sentences) {
+	//run the method so that we can get the values needed
 	Analyser::analyseWordsAndLettersInSourceText(sentences);
+
+	//assign the values needed for the equation.
 	double wordtotal = Analyser::getTotalWords();
 	double sentenceTotal = Analyser::getTotalSentences();
 	double syllablesTotal = Analyser::getTotalSyllables();
 
-
+	//using the equation in the summary, substatute the numbers with the values given by analyseWordsAndLettersInSourceText.
 	double fleschKincaidGradeLevel = (0.39 * (wordtotal / sentenceTotal)) + (11.8 * (syllablesTotal / wordtotal)) - 15.59;
 
+	//returns the result of the equation.
 	return fleschKincaidGradeLevel;
 
 }
@@ -254,15 +268,18 @@ double Analyser::calculateFleschKincaidGradeLevel(const std::vector<std::string>
 /// <param name="sentences">Vector of strings representings the source text as individual sentences</param>
 /// <returns>Gunning Fog Index</returns>
 double Analyser::calculateGunningFogIndex(const std::vector<std::string>& sentences) {
-
+	//run the method so that we can get the values needed
 	Analyser::analyseWordsAndLettersInSourceText(sentences);
+
+	//assign the values needed for the equation.
 	double wordtotal = Analyser::getTotalWords();
 	double sentenceTotal = Analyser::getTotalSentences();
 	double complexWordTotal = Analyser::getTotalComplexWords();
 
-
+	//using the equation in the summary, substatute the numbers with the values given by analyseWordsAndLettersInSourceText.
 	double gunningFogIndex = 0.4 * ((wordtotal / sentenceTotal) + (100 * (complexWordTotal / wordtotal)));
 
+	//returns the result of the equation.
 	return gunningFogIndex;
 }
 
@@ -274,16 +291,19 @@ double Analyser::calculateGunningFogIndex(const std::vector<std::string>& senten
 /// </summary>
 /// <param name="sentences">Vector of strings representings the source text as individual sentences</param>
 /// <returns>Coleman-Liau Index</returns>
-double Analyser::calculateColemanLiauIndex(const std::vector<std::string>& sentences) { 
+double Analyser::calculateColemanLiauIndex(const std::vector<std::string>& sentences) {
 
 	Analyser::analyseWordsAndLettersInSourceText(sentences);
+
+	//assign the values needed for the equation.
 	double wordtotal = Analyser::getTotalWords();
 	double sentenceTotal = Analyser::getTotalSentences();
 	double letterTotal = Analyser::getTotalLetters();
 
-
+	//using the equation in the summary, substatute the numbers with the values given by analyseWordsAndLettersInSourceText.
 	double colemanLiauIndex = (0.0588 * (letterTotal / wordtotal * 100)) - (0.296 * (sentenceTotal / wordtotal * 100)) - 15.8;
 
+	//returns the result of the equation.
 	return colemanLiauIndex;
 }
 
@@ -304,18 +324,21 @@ double Analyser::calculateColemanLiauIndex(const std::vector<std::string>& sente
 /// <returns>std::map<std::size_t, std::size_t> with the word lengths as the key and the count of the number 
 /// of words in the text of each specific length</returns>
 std::map<std::size_t, std::size_t> Analyser::analyseWordLengthFrequencyInSourceText(const std::vector<std::string>& sentences) {
+	
+	//this is called so that we can get a vector of the words in the sentences
 	Analyser::analyseWordsAndLettersInSourceText(sentences);
-
+	// create an empty map that will be used to store the frequency of the words
 	std::map<std::size_t, std::size_t> mapOfFrequency;
 
+	//loops through every word in the sentences
+	for (std::string word : this->words) {
 
-	for (std::string word: this->words) {
-
+		//using the length of the word as the key, we add 1 to the value of that key
 		mapOfFrequency[word.size()]++;
 
 
 	}
-
+	//returns the map with the frequencies.
 	return mapOfFrequency;
 }
 
