@@ -19,7 +19,7 @@ public:
 	/// </summary>
 	/// <param name="word">A single word</param>
 	/// <returns>the number of vowels in the word</returns>
-	int virtual countSyllables(const std::string& word);
+	int virtual countSyllables(const std::string& word) = 0;
 
     // 3rd Methods
 
