@@ -45,15 +45,6 @@ public:
 };
 
 
-// Helper method
-
-   /// <summary>
-   /// A basic function with a simple methodoloy aproximating the number of syllables in a word using vowel and vowel pair
-   /// counting
-   /// </summary>
-   /// <param name="word">A single word</param>
-   /// <returns>the number of vowels in the word</returns>
-int Analyser::countSyllables(const std::string& word) { return 1; }
 
 // 3rd Methods
 
