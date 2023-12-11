@@ -43,7 +43,7 @@ public:
 
 };
 
-
+int Analyser::countSyllables(const std::string& word) { return 1; }
 
 // 3rd Methods
 
