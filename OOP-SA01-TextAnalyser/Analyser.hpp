@@ -192,7 +192,7 @@ double Analyser::averageWordsPerSentence() {
 double Analyser::averageLettersPerWord() {
 
 	//devides total number of letters by number of words.
-	return Analyser::getTotalLetters() / Analyser::getTotalWords();
+	return getTotalLetters() / getTotalWords();
 }
 
 /// <summary>
@@ -203,7 +203,7 @@ double Analyser::averageLettersPerWord() {
 double Analyser::averageSyllablesPerWord() {
 
 	//devides total number of syllables by number of words.
-	return Analyser::getTotalSyllables() / Analyser::getTotalWords();
+	return getTotalSyllables() / getTotalWords();
 }
 
 // 2.2 Methods
@@ -217,13 +217,13 @@ double Analyser::averageSyllablesPerWord() {
 /// <returns>Flesch Reading Ease Score</returns>
 double Analyser::calculateFleschReadingEaseScore(const std::vector<std::string>& sentences) {
 	//run the method so that we can get the values needed
-	Analyser::analyseWordsAndLettersInSourceText(sentences);
+	analyseWordsAndLettersInSourceText(sentences);
 
 
 	//assign the values needed for the equation.
-	double wordtotal = Analyser::getTotalWords();
-	double sentenceTotal = Analyser::getTotalSentences();
-	double syllablesTotal = Analyser::getTotalSyllables();
+	double wordtotal = getTotalWords();
+	double sentenceTotal = getTotalSentences();
+	double syllablesTotal = getTotalSyllables();
 
 	//using the equation in the summary, substatute the numbers with the values given by analyseWordsAndLettersInSourceText.
 	double fleschReadingEaseScore = 206.835 - (1.015 * (wordtotal / sentenceTotal)) - (84.6 * (syllablesTotal / wordtotal));
@@ -242,12 +242,12 @@ double Analyser::calculateFleschReadingEaseScore(const std::vector<std::string>&
 /// <returns>Flesch-Kincaid Grade Level</returns>
 double Analyser::calculateFleschKincaidGradeLevel(const std::vector<std::string>& sentences) {
 	//run the method so that we can get the values needed
-	Analyser::analyseWordsAndLettersInSourceText(sentences);
+	analyseWordsAndLettersInSourceText(sentences);
 
 	//assign the values needed for the equation.
-	double wordtotal = Analyser::getTotalWords();
-	double sentenceTotal = Analyser::getTotalSentences();
-	double syllablesTotal = Analyser::getTotalSyllables();
+	double wordtotal = getTotalWords();
+	double sentenceTotal = getTotalSentences();
+	double syllablesTotal = getTotalSyllables();
 
 	//using the equation in the summary, substatute the numbers with the values given by analyseWordsAndLettersInSourceText.
 	double fleschKincaidGradeLevel = (0.39 * (wordtotal / sentenceTotal)) + (11.8 * (syllablesTotal / wordtotal)) - 15.59;
@@ -269,12 +269,12 @@ double Analyser::calculateFleschKincaidGradeLevel(const std::vector<std::string>
 /// <returns>Gunning Fog Index</returns>
 double Analyser::calculateGunningFogIndex(const std::vector<std::string>& sentences) {
 	//run the method so that we can get the values needed
-	Analyser::analyseWordsAndLettersInSourceText(sentences);
+	analyseWordsAndLettersInSourceText(sentences);
 
 	//assign the values needed for the equation.
-	double wordtotal = Analyser::getTotalWords();
-	double sentenceTotal = Analyser::getTotalSentences();
-	double complexWordTotal = Analyser::getTotalComplexWords();
+	double wordtotal = getTotalWords();
+	double sentenceTotal = getTotalSentences();
+	double complexWordTotal = getTotalComplexWords();
 
 	//using the equation in the summary, substatute the numbers with the values given by analyseWordsAndLettersInSourceText.
 	double gunningFogIndex = 0.4 * ((wordtotal / sentenceTotal) + (100 * (complexWordTotal / wordtotal)));
@@ -293,12 +293,12 @@ double Analyser::calculateGunningFogIndex(const std::vector<std::string>& senten
 /// <returns>Coleman-Liau Index</returns>
 double Analyser::calculateColemanLiauIndex(const std::vector<std::string>& sentences) {
 
-	Analyser::analyseWordsAndLettersInSourceText(sentences);
+	analyseWordsAndLettersInSourceText(sentences);
 
 	//assign the values needed for the equation.
-	double wordtotal = Analyser::getTotalWords();
-	double sentenceTotal = Analyser::getTotalSentences();
-	double letterTotal = Analyser::getTotalLetters();
+	double wordtotal = getTotalWords();
+	double sentenceTotal = getTotalSentences();
+	double letterTotal = getTotalLetters();
 
 	//using the equation in the summary, substatute the numbers with the values given by analyseWordsAndLettersInSourceText.
 	double colemanLiauIndex = (0.0588 * (letterTotal / wordtotal * 100)) - (0.296 * (sentenceTotal / wordtotal * 100)) - 15.8;
@@ -326,7 +326,7 @@ double Analyser::calculateColemanLiauIndex(const std::vector<std::string>& sente
 std::map<std::size_t, std::size_t> Analyser::analyseWordLengthFrequencyInSourceText(const std::vector<std::string>& sentences) {
 	
 	//this is called so that we can get a vector of the words in the sentences
-	Analyser::analyseWordsAndLettersInSourceText(sentences);
+	analyseWordsAndLettersInSourceText(sentences);
 	// create an empty map that will be used to store the frequency of the words
 	std::map<std::size_t, std::size_t> mapOfFrequency;
 
